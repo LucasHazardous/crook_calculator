@@ -1,6 +1,6 @@
 use crate::{Element, TIERS};
 
-pub fn compute_equation(elements: &mut Vec<Element>) {
+pub fn compute_equation(mut elements: Vec<Element>) -> f64 {
     let mut current_pos = 0;
     let mut stack: Vec<usize> = Vec::new();
 
@@ -9,7 +9,7 @@ pub fn compute_equation(elements: &mut Vec<Element>) {
             Element::OpenBracket => stack.push(current_pos),
             Element::CloseBracket => {
                 current_pos -= compute_equation_without_brackets(
-                    elements,
+                    &mut elements,
                     stack.pop().unwrap(),
                     current_pos
                 );
@@ -20,14 +20,18 @@ pub fn compute_equation(elements: &mut Vec<Element>) {
     }
 
     let elements_len = elements.len();
-    compute_equation_without_brackets(elements, 0, elements_len-1);
+    compute_equation_without_brackets(&mut elements, 0, elements_len-1);
+
+    if let Element::Number(num) = elements[0] {
+        num
+    } else {
+        panic!("Result is not a number, make sure that the input is valid.");
+    }
 }
 
-fn compute_equation_without_brackets(elements: &mut Vec<Element>, from: usize, to: usize) -> usize {
+fn compute_equation_without_brackets(elements: &mut Vec<Element>, mut from: usize, mut to: usize) -> usize {
     let mut reduced: usize = 0;
     
-    let mut to = to;
-    let mut from = from;
     if let Element::OpenBracket = elements[from] {
         elements.remove(from);
         to -= 1;
