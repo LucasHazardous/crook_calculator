@@ -1,5 +1,5 @@
 use std::io;
-use crook_calculator::*;
+use crook_calculator::compute;
 
 fn main() {
     println!("Welcome to Level 1 Crook Calculator.");
@@ -13,12 +13,8 @@ fn main() {
             continue 'main_loop;
         }
 
-        if let Some(mut elements) = convert_input_to_equation(input) {
-            compute_equation(&mut elements);
-        
-            if let Element::Number(res) = elements[0] {
-                println!("Result: {res}");
-            }
+        if let Some(res) = compute(input) {
+            println!("Result: {}", res);
         }
     }
 }
