@@ -1,11 +1,10 @@
 use crate::{Element, TIERS};
 
-pub fn compute_equation(elements: &mut Vec<Element>, bracket_pair_count: usize) {
+pub fn compute_equation(elements: &mut Vec<Element>) {
     let mut current_pos = 0;
     let mut stack: Vec<usize> = Vec::new();
-    let mut bracket_count = bracket_pair_count;
 
-    while bracket_count > 0 && current_pos < elements.len() {
+    while current_pos < elements.len() {
         match elements[current_pos] {
             Element::OpenBracket => stack.push(current_pos),
             Element::CloseBracket => {
@@ -14,7 +13,6 @@ pub fn compute_equation(elements: &mut Vec<Element>, bracket_pair_count: usize) 
                     stack.pop().unwrap(),
                     current_pos
                 );
-                bracket_count -= 1;
             },
             _ => ()
         }

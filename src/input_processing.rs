@@ -4,7 +4,6 @@ pub fn convert_input_to_equation(input: String) -> ConversionResult {
     let mut elements: Vec<Element> = Vec::new();
     let mut next_sign = false;
     let mut brackets = 0;
-    let mut bracket_iter = 0;
 
     for element in input.split_whitespace() {
         if next_sign {
@@ -30,7 +29,6 @@ pub fn convert_input_to_equation(input: String) -> ConversionResult {
                 next_sign = true;
             } else if remaining_char_count == 0 && first_char == '(' {
                 brackets += 1;
-                bracket_iter += 1;
                 elements.push(Element::OpenBracket);
             } else {
                 return ConversionResult::None;
@@ -41,7 +39,7 @@ pub fn convert_input_to_equation(input: String) -> ConversionResult {
         return ConversionResult::None;
     }
 
-    ConversionResult::Result(elements, bracket_iter)
+    ConversionResult::Result(elements)
 }
 
 fn first_char_and_remaining_count(element: &str) -> (char, usize) {

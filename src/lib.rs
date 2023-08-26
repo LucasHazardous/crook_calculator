@@ -12,7 +12,7 @@ pub enum Element {
 }
 
 pub enum ConversionResult {
-    Result(Vec<Element>, usize),
+    Result(Vec<Element>),
     None
 }
 
