@@ -13,7 +13,7 @@ fn main() {
             continue 'main_loop;
         }
 
-        if let ConversionResult::Result(mut elements) = convert_input_to_equation(input) {
+        if let Some(mut elements) = convert_input_to_equation(input) {
             compute_equation(&mut elements);
         
             if let Element::Number(res) = elements[0] {

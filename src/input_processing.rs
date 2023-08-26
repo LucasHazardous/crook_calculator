@@ -1,6 +1,6 @@
-use crate::{Element, ConversionResult, TIERS};
+use crate::{Element, TIERS};
 
-pub fn convert_input_to_equation(input: String) -> ConversionResult {
+pub fn convert_input_to_equation(input: String) -> Option<Vec<Element>> {
     let mut elements: Vec<Element> = Vec::new();
     let mut next_sign = false;
     let mut brackets = 0;
@@ -15,11 +15,11 @@ pub fn convert_input_to_equation(input: String) -> ConversionResult {
             } else if remaining_char_count == 0 && first_char == ')' {
                 brackets -= 1;
                 if brackets < 0 {
-                    return ConversionResult::None;
+                    return None;
                 }
                 elements.push(Element::CloseBracket);
             } else {
-                return ConversionResult::None;
+                return None;
             }
         } else {
             let (first_char, remaining_char_count) = first_char_and_remaining_count(element);
@@ -31,15 +31,15 @@ pub fn convert_input_to_equation(input: String) -> ConversionResult {
                 brackets += 1;
                 elements.push(Element::OpenBracket);
             } else {
-                return ConversionResult::None;
+                return None;
             }
         }
     }
     if !next_sign || brackets > 0 {
-        return ConversionResult::None;
+        return None;
     }
 
-    ConversionResult::Result(elements)
+    Some(elements)
 }
 
 fn first_char_and_remaining_count(element: &str) -> (char, usize) {
@@ -56,5 +56,5 @@ fn tiers_contain_operator(operator: &char) -> bool {
             return true;
         }
     }
-    return false;
+    false
 }

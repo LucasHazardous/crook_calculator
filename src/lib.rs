@@ -11,9 +11,4 @@ pub enum Element {
     CloseBracket
 }
 
-pub enum ConversionResult {
-    Result(Vec<Element>),
-    None
-}
-
 const TIERS: [[char; 2]; 3] = [['^', '^'], ['*', '/'], ['+', '-']];
