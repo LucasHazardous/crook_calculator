@@ -81,3 +81,38 @@ fn compute_operation(operation: &char, left_side: f64, right_side: f64) -> f64 {
         _ => 0.
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::input_processing::convert_input_to_equation;
+    use super::*;
+    use Element::{Number, OpenBracket};
+
+    #[test]
+    fn compute_operation_test() {
+        assert_eq!(compute_operation(&'+', 2., 2.), 4.);
+    }
+
+    #[test]
+    fn compute_equation_without_brackets_test() {
+        let mut elements = convert_input_to_equation("2 + 2 * 2").unwrap();
+        let elements_len = elements.len();
+
+        assert_eq!(compute_equation_without_brackets(&mut elements, 0, elements_len), elements_len-1);
+        assert_eq!(elements[0], Number(6.));
+    }
+
+    #[test]
+    #[should_panic(expected = "index out of bounds")]
+    fn compute_equation_failure_test() {
+        compute_equation(vec![OpenBracket, Number(2.)]);
+    }
+
+    #[test]
+    fn compute_equation_test() {
+        assert_eq!(
+            compute_equation(convert_input_to_equation("2 * ( 1 + 1 ) ^ 2 - 2 * 3").unwrap()),
+            2.
+        );
+    }
+}

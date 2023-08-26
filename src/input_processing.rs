@@ -58,3 +58,45 @@ fn tiers_contain_operator(operator: &char) -> bool {
     }
     false
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use Element::*;
+
+    #[test]
+    fn first_char_and_remaining_count_test() {
+        assert_eq!(first_char_and_remaining_count("abc"), ('a', 2));
+    }
+
+    #[test]
+    fn tiers_contain_operator_test() {
+        for tier in &TIERS {
+            for operator in tier {
+                assert!(tiers_contain_operator(operator));
+            }
+        }
+    }
+
+    #[test]
+    fn convert_input_to_equation_test() {
+        assert_eq!(convert_input_to_equation("2 * (  1 +  1 )  "), 
+        Some(vec![Number(2.), Operation('*'), OpenBracket, Number(1.),
+        Operation('+'), Number(1.), CloseBracket]));
+    }
+
+    #[test]
+    fn convert_input_to_equation_invalid_bracket_test() {
+        assert_eq!(convert_input_to_equation("2 * ( ) 1 +  1 )"), None);
+    }
+
+    #[test]
+    fn convert_input_to_equation_invalid_test() {
+        assert_eq!(convert_input_to_equation("2 * (  1 $ +1 )"), None);
+    }
+
+    #[test]
+    fn convert_input_to_equation_empty_test() {
+        assert_eq!(convert_input_to_equation("   \n  "), None);
+    }
+}
