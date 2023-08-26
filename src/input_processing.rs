@@ -1,6 +1,6 @@
 use crate::{Element, TIERS};
 
-pub fn convert_input_to_equation(input: String) -> Option<Vec<Element>> {
+pub fn convert_input_to_equation(input: &str) -> Option<Vec<Element>> {
     let mut elements: Vec<Element> = Vec::new();
     let mut next_sign = false;
     let mut brackets = 0;

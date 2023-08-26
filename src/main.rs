@@ -13,7 +13,7 @@ fn main() {
             continue 'main_loop;
         }
 
-        if let Some(res) = compute(input) {
+        if let Some(res) = compute(&input) {
             println!("Result: {}", res);
         }
     }
