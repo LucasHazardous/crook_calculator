@@ -2,7 +2,13 @@
 name = "crook_calculator"
 version = "0.1.0"
 edition = "2021"
+description = "Provides one function to compute mathematical equations from string slices."
+repository = "https://github.com/LucasHazardous/crook_calculator"
+keywords = ["math", "equation"]
+categories = ["mathematics"]
+license = "MIT"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[badges]
+maintenance = { status = "passively-maintained" }
 
 [dependencies]
