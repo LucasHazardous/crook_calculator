@@ -6,7 +6,7 @@ A package that comes with a library and a binary crate. Library crate provides o
 
 ### Binary crate
 
-Build and run the binary, then enter you precious numbers like this:
+Build and run the binary, then enter an equation like this:
 
 ```
 3 * ( ( 2 + 1 - 1 ) ^ 2 ) / 2 - 3.5
