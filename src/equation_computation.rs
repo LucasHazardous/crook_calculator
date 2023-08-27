@@ -9,9 +9,9 @@ pub fn compute_equation(mut elements: Vec<Element>) -> f64 {
             Element::OpenBracket => stack.push(current_pos),
             Element::CloseBracket => {
                 current_pos -= compute_equation_without_brackets(
-                    &mut elements,
                     stack.pop().unwrap(),
-                    current_pos
+                    current_pos,
+                    &mut elements
                 );
             },
             _ => ()
@@ -19,8 +19,7 @@ pub fn compute_equation(mut elements: Vec<Element>) -> f64 {
         current_pos += 1;
     }
 
-    let elements_len = elements.len();
-    compute_equation_without_brackets(&mut elements, 0, elements_len-1);
+    compute_equation_without_brackets(0, elements.len()-1, &mut elements);
 
     if let Element::Number(num) = elements[0] {
         num
@@ -29,7 +28,7 @@ pub fn compute_equation(mut elements: Vec<Element>) -> f64 {
     }
 }
 
-fn compute_equation_without_brackets(elements: &mut Vec<Element>, mut from: usize, mut to: usize) -> usize {
+fn compute_equation_without_brackets(mut from: usize, mut to: usize, elements: &mut Vec<Element>) -> usize {
     let mut reduced: usize = 0;
     
     if let Element::OpenBracket = elements[from] {
@@ -98,7 +97,7 @@ mod tests {
         let mut elements = convert_input_to_equation("2 + 2 * 2").unwrap();
         let elements_len = elements.len();
 
-        assert_eq!(compute_equation_without_brackets(&mut elements, 0, elements_len), elements_len-1);
+        assert_eq!(compute_equation_without_brackets(0, elements_len, &mut elements), elements_len-1);
         assert_eq!(elements[0], Number(6.));
     }
 
