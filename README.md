@@ -1,25 +1,25 @@
 # Level 1 Crook Calculator
 
-If you came here, maybe you are not a Level 100 Mafia Boss, but it doesn't matter, because:
-
-> A journey of a thousand miles begins with a single step.
-
-Now go count your weapons or how many times you shot the bank.
+A package that comes with a library and a binary crate. Library crate provides one function to compute mathematical equations from string slices. Binary crate provides command line interface for this function.
 
 ## Usage
 
-Build and run (cargo, rustc, whatever), even a crook knows how to do this. Then enter you precious numbers like this:
+### Binary crate
+
+Build and run the binary, then enter you precious numbers like this:
 
 ```
 3 * ( ( 2 + 1 - 1 ) ^ 2 ) / 2 - 3.5
 ```
 
-**Remember about spaces.** Why is that a thing? Because you can do this:
+**Remember about spaces.** Any ammount of spaces or any different whitespace characters to separate numbers and operators.
 
+### Library crate
+
+```rust
+use crook_calculator;
+
+fn main() {
+    println!("{}", crook_calculator::compute("2 + 2").unwrap());
+}
 ```
-1 + -1
-```
-
-When you enter something invalid, you have to go again and enter something valid.
-
-Good luck.
