@@ -51,12 +51,11 @@ fn first_char_and_remaining_count(element: &str) -> (char, usize) {
 }
 
 fn tiers_contain_operator(operator: &char) -> bool {
-    for tier in &TIERS {
-        if tier.contains(operator) {
-            return true;
-        }
-    }
-    false
+    TIERS
+        .iter()
+        .flatten()
+        .collect::<Vec<&char>>()
+        .contains(&operator)
 }
 
 #[cfg(test)]
@@ -71,11 +70,12 @@ mod tests {
 
     #[test]
     fn tiers_contain_operator_test() {
-        for tier in &TIERS {
-            for operator in tier {
-                assert!(tiers_contain_operator(operator));
-            }
-        }
+        TIERS
+            .iter()
+            .flatten()
+            .for_each(|operator| {
+                assert!(tiers_contain_operator(operator))
+            })
     }
 
     #[test]
